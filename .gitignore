@@ -105,3 +105,6 @@ dist
 
 # Uploads folder
 /public/uploads
+
+# uploads folder
+/uploads

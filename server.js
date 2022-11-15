@@ -1,12 +1,33 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
+const path = require("path");
+const fs = require("fs");
+const hostname = "0.0.0.0"; // listen on all ports
+const port = 3010;
 
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(
+  fileUpload({
+    createParentPath: true, // enabling "express-fileupload middleware". createParentPath will let express-fileupload create the dir path for "mv" method when said dir doesn't exist
+  })
+);
 
-app.use(fileUpload());
+let currentRandomFolderName;
+
+function randomizeString(characters) {
+  let result = "";
+  charactersLength = characters.length;
+
+  for (var i = 0; i < charactersLength; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  currentRandomFolderName = result;
+  return result;
+}
 
 // Upload Endpoint
 app.post("/upload", (req, res) => {
@@ -15,15 +36,78 @@ app.post("/upload", (req, res) => {
   }
 
   const file = req.files.file;
+  console.log("File uploaded:", file);
 
-  file.mv(`${__dirname}/client/public/uploads/${file.name}`, (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
+  if (file.length === undefined) {
+    const uploaded_files_folder =
+      __dirname +
+      "/uploads/" +
+      `/${randomizeString("abcdefg1234567")}/` +
+      file.name;
 
-    res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
-  });
+    file.mv(uploaded_files_folder, (err) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      // return res.render("index", {
+      //   fileLink: `${req.headers.origin}/uploads/${currentRandomFolderName}/${file.name}`,
+      // });
+
+      res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+    });
+  } else {
+    const randomFolderName = randomizeString("abcdefg1234567") + "-multiple";
+
+    file.forEach((item) => {
+      item.mv(
+        __dirname + "/uploads/" + `/${randomFolderName}/` + item.name,
+        (err) => {
+          if (err) {
+            return res.status(500).send(err);
+          }
+        }
+      );
+    });
+
+    let currentDirOfMultipleFiles = "example_dir";
+
+    console.log(randomFolderName);
+    let filenames = fs.readdirSync(
+      __dirname + "/uploads/" + `/${randomFolderName}`
+    );
+
+    console.log("filenames in directory:");
+    filenames.forEach((file) => {
+      console.log("File:", file);
+    });
+
+    return res.render("index", {
+      fileLink: `${req.headers.origin}/uploads/${randomFolderName}`,
+    });
+  }
 });
 
-app.listen(3010, () => console.log("Server Started..."));
+app.route("/uploads/:folder/:file").get(handleDownload).post(handleDownload);
+
+// app
+//   .route("/uploads/:folder")
+//   .get(handleDownloadFolder)
+//   .post(handleDownloadFolder);
+
+// async function handleDownloadFolder(req, res) {
+//   console.log(req.params);
+//   // download zipped folder of files  (express-zip)
+//   res.zip([{ path: `./uploads/${req.params.folder}`, name: "files" }]);
+// }
+
+async function handleDownload(req, res) {
+  console.log(
+    "File requested:",
+    "/" + req.params.folder + "/" + req.params.file
+  );
+  res.download(__dirname + `/uploads/${req.params.folder}/${req.params.file}`);
+}
+
+app.listen(process.env.PORT || port, () =>
+  console.log(`listening at http://${hostname}:${port}/`)
+);

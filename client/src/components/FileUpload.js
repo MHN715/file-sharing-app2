@@ -57,7 +57,13 @@ const FileUpload = () => {
       {message ? <Message msg={message} /> : null}
       <form onSubmit={onSubmit}>
         <div>
-          <input type="file" id="customFile" onChange={onChange} />
+          <input
+            type="file"
+            id="customFile"
+            onChange={onChange}
+            multiple
+            required
+          />
           <label htmlFor="customFile">{filename}</label>
         </div>
 
@@ -65,14 +71,14 @@ const FileUpload = () => {
 
         <input type="submit" value="Upload" />
       </form>
-      {uploadedFile ? (
+      {/* {uploadedFile ? (
         <div>
           <div>
             <h3>{uploadedFile.fileName}</h3>
             <img style={{ width: "100%" }} src={uploadedFile.filePath} alt="" />
           </div>
         </div>
-      ) : null}
+      ) : null} */}
     </Fragment>
   );
 };
