@@ -1,0 +1,15 @@
+.form{
+    border: 3px dashed black;
+    /* opacity: 0; */
+    grid-area: 4/3/10/9;
+    display: grid;
+    grid-template-rows: repeat(10, 1fr);
+    grid-template-columns: repeat(10, 1fr);
+}
+
+.input{
+    border: 3px dashed black;
+    opacity: 0;
+    grid-area: 1/1/11/11;
+    cursor: pointer;
+}
