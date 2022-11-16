@@ -4,21 +4,28 @@ import Progress from "./Progress";
 import axios from "axios";
 
 const FileUpload = () => {
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState([]);
   const [filename, setFilename] = useState("Choose File");
   const [uploadedFile, setUploadedFile] = useState({});
   const [message, setMessage] = useState("");
   const [uploadPercentage, setUploadPercentage] = useState(0);
 
   const onChange = (e) => {
-    setFile(e.target.files[0]);
+    console.log(e.target.files);
+    setFile(e.target.files);
     setFilename(e.target.files[0].name);
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("file", file);
+    // formData.append("file", file);
+
+    for (let i = 0; i < file.length; i++) {
+      formData.append("file", file[i]);
+    }
+
+    console.log(file.length);
 
     try {
       const res = await axios.post("http://localhost:3010/upload", formData, {
@@ -36,7 +43,7 @@ const FileUpload = () => {
 
       // Clear percentage
       setTimeout(() => setUploadPercentage(0), 10000);
-
+      console.log(res.data);
       const { fileName, filePath } = res.data;
 
       setUploadedFile({ fileName, filePath });
