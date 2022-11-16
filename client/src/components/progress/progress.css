@@ -1,0 +1,12 @@
+.progress-bar-wrapper{
+    /* background: rgb(0, 47, 255); */
+    border: 1px solid grey;
+    grid-area: 9/2/10/10;
+    display: grid;
+    position: relative;
+    z-index: 2;
+}
+.progress-bar{
+  background: blue;
+  height: 100%;
+}

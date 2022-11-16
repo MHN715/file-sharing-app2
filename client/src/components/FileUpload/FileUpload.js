@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Message from "../Message";
-import Progress from "../Progress";
+import Progress from "../progress/Progress";
 import axios from "axios";
 import "./fileupload.css";
 
@@ -11,6 +11,8 @@ const FileUpload = () => {
   const [message, setMessage] = useState("");
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [filesInInput, setFilesInInput] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [fileLink, setFileLink] = useState("");
 
   const onChange = (e) => {
     setFiles(e.target.files);
@@ -57,8 +59,10 @@ const FileUpload = () => {
 
       // Clear percentage
       setTimeout(() => setUploadPercentage(0), 2000);
+      setFilesInInput(false);
       console.log(e.target);
       e.target.reset();
+      setFileLink(res.data.filelink);
 
       console.log(res);
       // const { fileName, filePath } = res.data;
@@ -91,13 +95,24 @@ const FileUpload = () => {
         />
         {/* <label htmlFor="files">{filenames}</label> */}
         {/* </div> */}
-
-        {/* <input type="submit" value="Upload" /> */}
+        {filesInInput && !submitted ? (
+          <>
+            <Progress percentage={uploadPercentage} />
+            <input
+              type="submit"
+              value="Upload"
+              className="submitBtn"
+              // onClick={() => setSubmitted(true)}
+            />
+          </>
+        ) : null}
+        <h2 className="heading2">
+          Drag & Drop your files here or click to choose
+        </h2>
       </form>
       {/* <button id="submit" style="grid-column: span 2" type="submit">
         Share
       </button> */}
-      <Progress percentage={uploadPercentage} />
       {/* {uploadedFiles ? (
         <div>
           <div>
@@ -110,11 +125,24 @@ const FileUpload = () => {
           </div>
         </div>
       ) : null} */}
-      <div>
-        {Object.entries(files).map((item, index) => {
-          return <div key={item[1].name + index}>{item[1].name}</div>;
-        })}
-      </div>
+
+      {filesInInput ? (
+        <div className="files-to-upload">
+          <div className="file-to-upload-inner-wrapper">
+            {Object.entries(files).map((item, index) => {
+              return (
+                <div
+                  className="files-to-upload__file"
+                  key={item[1].name + index}
+                >
+                  {item[1].name}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
+      <div>{fileLink}</div>
     </Fragment>
   );
 };
