@@ -36,7 +36,7 @@ app.post("/upload", (req, res) => {
   }
 
   const file = req.files.file;
-  console.log("File uploaded:", file);
+  console.log("File(s) uploaded:", file);
 
   if (file.length === undefined) {
     const uploaded_files_folder =
@@ -53,7 +53,13 @@ app.post("/upload", (req, res) => {
       //   fileLink: `${req.headers.origin}/uploads/${currentRandomFolderName}/${file.name}`,
       // });
 
-      res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+      return res.json({
+        fileName: file.name,
+        filePath: `/uploads/${file.name}`,
+        filelink: `${req.get("host")}/uploads/${currentRandomFolderName}/${
+          file.name
+        }`,
+      });
     });
   } else {
     const randomFolderName = randomizeString("abcdefg1234567") + "-multiple";
@@ -71,19 +77,19 @@ app.post("/upload", (req, res) => {
 
     let currentDirOfMultipleFiles = "example_dir";
 
-    console.log(randomFolderName);
-    let filenames = fs.readdirSync(
-      __dirname + "/uploads/" + `/${randomFolderName}`
-    );
+    // console.log(randomFolderName);
+    // let filenames = fs.readdirSync(
+    //   __dirname + "/uploads/" + `/${randomFolderName}`
+    // );
 
-    console.log("filenames in directory:");
-    filenames.forEach((file) => {
-      console.log("File:", file);
-    });
+    // console.log("filenames in directory:");
+    // filenames.forEach((file) => {
+    //   console.log("File:", file);
+    // });
 
-    return res.render("index", {
-      fileLink: `${req.headers.origin}/uploads/${randomFolderName}`,
-    });
+    // return res.render("index", {
+    //   fileLink: `${req.headers.origin}/uploads/${randomFolderName}`,
+    // });
   }
 });
 
@@ -105,7 +111,7 @@ async function handleDownload(req, res) {
     "File requested:",
     "/" + req.params.folder + "/" + req.params.file
   );
-  res.download(__dirname + `/uploads/${req.params.folder}/${req.params.file}`);
+  res.download(`uploads/${req.params.folder}/${req.params.file}`);
 }
 
 app.listen(process.env.PORT || port, () =>
