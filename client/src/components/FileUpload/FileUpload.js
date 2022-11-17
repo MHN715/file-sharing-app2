@@ -12,7 +12,7 @@ const FileUpload = () => {
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [filesInInput, setFilesInInput] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [fileLink, setFileLink] = useState("");
+  const [fileLink, setFileLink] = useState([]);
 
   const onChange = (e) => {
     setFiles(e.target.files);
@@ -62,7 +62,8 @@ const FileUpload = () => {
       setFilesInInput(false);
       console.log(e.target);
       e.target.reset();
-      setFileLink(res.data.filelink);
+      // setFileLink(res.data.filelink);
+      setFileLink((fileLink) => [...fileLink, res.data.filelink]);
 
       console.log(res);
       // const { fileName, filePath } = res.data;
