@@ -8,6 +8,11 @@
     color: rgb(83, 83, 83);
 }   
 
+.click-to-browse-dummyBtn{
+    color: blue;
+    text-decoration: underline;
+}
+
 .form{
     border: 3px dashed black;
     /* opacity: 0; */
@@ -33,11 +38,9 @@
 }
 
 .files-to-upload{
-    border: 2px solid blue;
     grid-area:6/2/17/10;
-    /* background: linear-gradient(#aaafbb,#868b91); */
-    background: rgba(225, 225, 225, 0.493);
-  
+    /* background: rgba(225, 225, 225, 0.493); */
+    background: linear-gradient(#aaafbb,#868b91);
     position: relative;
     z-index: 1;
     display: grid;
@@ -61,7 +64,7 @@
     /* border: 1px solid blue; */
     display: flex;
     justify-content: center;
-    font-size: 1.7rem;
+    font-size: 1rem;
     color: rgb(86, 86, 86);
     text-shadow: 5px 5px 8px;
 }
