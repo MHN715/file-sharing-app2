@@ -8,9 +8,12 @@ import ContextStates from "./context/ContextStates";
 
 export default function App() {
   const [uploadPercentage, setUploadPercentage] = useState(0);
+  const [fileLinks, setFileLinks] = useState([]);
 
   return (
-    <ContextStates.Provider value={{ setUploadPercentage, uploadPercentage }}>
+    <ContextStates.Provider
+      value={{ setUploadPercentage, uploadPercentage, fileLinks, setFileLinks }}
+    >
       <div className="wrapper">
         <div className="heading-wrapper">
           <AiOutlineCloudUpload className="upload-icon" />
