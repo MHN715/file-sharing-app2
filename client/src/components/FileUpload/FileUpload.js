@@ -1,18 +1,20 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useContext } from "react";
 import Message from "../Message";
 import Progress from "../progress/Progress";
 import axios from "axios";
 import "./fileupload.css";
+import ContextStates from "../../context/ContextStates";
 
 const FileUpload = () => {
-  const [files, setFiles] = useState({});
   // const [fileNames, setFileNames] = useState([]);
   // const [uploadedFiles, setUploadedFiles] = useState({});
+  const [files, setFiles] = useState({});
   const [message, setMessage] = useState("");
-  const [uploadPercentage, setUploadPercentage] = useState(0);
   const [filesInInput, setFilesInInput] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [fileLink, setFileLink] = useState([]);
+
+  const { setUploadPercentage } = useContext(ContextStates);
 
   const onChange = (e) => {
     setFiles(e.target.files);
@@ -98,7 +100,7 @@ const FileUpload = () => {
         {/* </div> */}
         {filesInInput && !submitted ? (
           <>
-            <Progress percentage={uploadPercentage} />
+            {/* <Progress percentage={uploadPercentage} /> */}
             <input
               type="submit"
               value="Upload"
@@ -143,7 +145,6 @@ const FileUpload = () => {
           </div>
         </div>
       ) : null}
-      <div>{fileLink}</div>
     </Fragment>
   );
 };
