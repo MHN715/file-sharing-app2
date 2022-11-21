@@ -1,4 +1,55 @@
 .links-to-copy{
-    border: 3px solid black;
     grid-area: 6/11/17/20;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: .5rem;
+    overflow-y: scroll;
+}
+
+.link-wrapper{
+    /* border: 1px solid red; */
+    box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.649);
+    display: flex;
+    flex-direction: column;
+}
+
+.link{
+    /* border: 1px solid black; */
+    font-size: 0.8rem;
+    padding: .5rem;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    /* text-overflow: ellipsis; */
+    color: blue;
+    text-decoration: underline;
+}
+
+.btn-copyText-wrapper{
+    /* border: 1px solid green; */
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+}
+
+.copy-btn{
+    /* width: 100%; */
+    align-self: center;
+    border-radius: .7rem;
+    margin-bottom: .3rem;
+    grid-column: 5/8;
+    height: 100%;
+}
+
+.copiedToClipbardMsg{
+    /* border: 1px solid blue; */
+    font-size: .9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 8/12;
+    font-size: .7rem;
 }

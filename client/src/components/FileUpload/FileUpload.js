@@ -4,6 +4,7 @@ import Progress from "../progress/Progress";
 import axios from "axios";
 import "./fileupload.css";
 import ContextStates from "../../context/ContextStates";
+import { AiFillFile } from "react-icons/ai";
 
 const FileUpload = () => {
   // const [fileNames, setFileNames] = useState([]);
@@ -60,7 +61,7 @@ const FileUpload = () => {
 
       console.log(res);
       // Clear percentage
-      setTimeout(() => setUploadPercentage(0), 2000);
+      setTimeout(() => setUploadPercentage(0), 500);
       setFilesInInput(false);
       e.target.reset();
       setFileLinks((fileLink) => [...fileLink, res.data.link]);
@@ -140,6 +141,7 @@ const FileUpload = () => {
                   className="files-to-upload__file"
                   key={item[1].name + index}
                 >
+                  <AiFillFile className="file-icon" />
                   {item[1].name}
                 </div>
               );

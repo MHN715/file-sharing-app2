@@ -23,18 +23,22 @@ export default function LinksToCopy() {
 
   return (
     <div className="links-to-copy">
+      <h3>Your links:</h3>
       {fileLinks.map((link, index) => {
         return (
           <div className="link-wrapper" key={index}>
             <p className="link">{link}</p>
-            <button
-              data-msg={link}
-              onClick={copyToClipBoard}
-              className="copy-btn"
-            >
-              Copy
-            </button>
-            <span></span>
+            <div className="btn-copyText-wrapper">
+              {" "}
+              <button
+                data-msg={link}
+                onClick={copyToClipBoard}
+                className="copy-btn"
+              >
+                Copy link
+              </button>
+              <div className="copiedToClipbardMsg"></div>
+            </div>
           </div>
         );
       })}

@@ -3,6 +3,7 @@ const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
+const admz = require("adm-zip");
 const hostname = "0.0.0.0"; // listen on all ports
 const port = 3020;
 
@@ -74,6 +75,8 @@ app.post("/upload", (req, res) => {
         }
       );
     });
+
+    const to_zip = fs.readdirSync(__dirname + "/uploads/" + randomFolderName);
 
     return res.json({
       name: randomFolderName,
