@@ -54,9 +54,9 @@ app.post("/upload", (req, res) => {
       // });
 
       return res.json({
-        fileName: file.name,
-        filePath: `/uploads/${file.name}`,
-        filelink: `${req.get("host")}/uploads/${currentRandomFolderName}/${
+        name: file.name,
+        path: `/uploads/${file.name}`,
+        link: `${req.get("host")}/uploads/${currentRandomFolderName}/${
           file.name
         }`,
       });
@@ -73,6 +73,12 @@ app.post("/upload", (req, res) => {
           }
         }
       );
+    });
+
+    return res.json({
+      name: randomFolderName,
+      path: `/uploads/${randomFolderName}`,
+      link: `${req.get("host")}/uploads/${randomFolderName}`,
     });
 
     let currentDirOfMultipleFiles = "example_dir";
