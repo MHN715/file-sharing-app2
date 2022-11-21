@@ -12,9 +12,10 @@ const FileUpload = () => {
   const [message, setMessage] = useState("");
   const [filesInInput, setFilesInInput] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [fileLink, setFileLink] = useState([]);
+  // const [fileLink, setFileLink] = useState([]);
+  const { setUploadPercentage, setFileLinks } = useContext(ContextStates);
 
-  const { setUploadPercentage } = useContext(ContextStates);
+  console.log(submitted);
 
   const onChange = (e) => {
     setFiles(e.target.files);
@@ -39,12 +40,10 @@ const FileUpload = () => {
     e.preventDefault();
     const formData = new FormData();
     // formData.append("file", file);
-    // console.log(e.target);
-
     for (let i = 0; i < files.length; i++) {
       formData.append("file", files[i]);
     }
-
+    setSubmitted(true);
     try {
       const res = await axios.post("http://localhost:3020/upload", formData, {
         headers: {
@@ -59,21 +58,21 @@ const FileUpload = () => {
         },
       });
 
+      console.log(res);
       // Clear percentage
       setTimeout(() => setUploadPercentage(0), 2000);
       setFilesInInput(false);
-      console.log(e.target);
       e.target.reset();
-      // setFileLink(res.data.filelink);
-      setFileLink((fileLink) => [...fileLink, res.data.filelink]);
+      setFileLinks((fileLink) => [...fileLink, res.data.link]);
+      setSubmitted(false);
 
-      console.log(res);
       // const { fileName, filePath } = res.data;
 
       // setUploadedFiles({ fileName, filePath });
 
       // setMessage("File Uploaded");
     } catch (err) {
+      console.log(err);
       if (err.response.status === 500) {
         setMessage("There was a problem with the server");
       } else {
@@ -81,6 +80,8 @@ const FileUpload = () => {
       }
       setUploadPercentage(0);
     }
+
+    console.log("test222222222222222222");
   };
 
   return (
@@ -110,7 +111,8 @@ const FileUpload = () => {
           </>
         ) : null}
         <h2 className="heading2">
-          Drag & Drop your files here or click to choose
+          Drag & Drop your files here or{" "}
+          <span className="click-to-browse-dummyBtn">click</span> to browse
         </h2>
       </form>
       {/* <button id="submit" style="grid-column: span 2" type="submit">
