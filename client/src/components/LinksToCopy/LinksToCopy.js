@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import "./LinksToCopy.css";
 import ContextStates from "../../context/ContextStates";
 
@@ -15,16 +15,29 @@ export default function LinksToCopy() {
     }
     try {
       await navigator.clipboard.writeText(currentLink);
-      copiedMessage.textContent = "Copied to clipboard";
+      copiedMessage.classList.add("copiedToClipbardMsg_anim");
+      copiedMessage.addEventListener("animationend", () => {
+        copiedMessage.classList.remove("copiedToClipbardMsg_anim");
+      });
     } catch (err) {
       console.error("Failed to copy!", err);
     }
   }
 
+  useEffect(() => {
+    if (fileLinks.length < 1) return;
+    console.log("links received");
+  }, [fileLinks]);
+
   return (
-    <div className="links-to-copy">
+    <div
+      className="links-to-copy"
+      onLoadedData={() => {
+        console.log("blur");
+      }}
+    >
       <h3>Your links:</h3>
-      {fileLinks.map((link, index) => {
+      {fileLinks?.map((link, index) => {
         return (
           <div className="link-wrapper" key={index}>
             <p className="link">{link}</p>
@@ -37,7 +50,7 @@ export default function LinksToCopy() {
               >
                 Copy link
               </button>
-              <div className="copiedToClipbardMsg"></div>
+              <div className="copiedToClipbardMsg">Copied to clipboard</div>
             </div>
           </div>
         );

@@ -5,8 +5,17 @@
     display: grid;
     position: relative;
     z-index: 2;
+    border-radius: 10px;
 }
 .progress-bar{
-  background: blue;
+  background: rgb(0, 112, 240);
   height: 100%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  /* margin-left: 1rem; */
+}
+
+.percentage-number{
+  margin-left: .8rem;
 }

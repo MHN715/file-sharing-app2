@@ -5,22 +5,24 @@
     text-align: center;
     display: grid;
     align-items: center;
-    color: rgb(83, 83, 83);
 }   
 
 .click-to-browse-dummyBtn{
-    color: blue;
+    color: rgb(0, 112, 240);;
     text-decoration: underline;
 }
 
 .form{
-    border: 3px dashed black;
+    border: 3px dashed rgb(135, 135, 135);
     /* opacity: 0; */
     grid-area:6/2/17/10;
     display: grid;
     grid-template-rows: repeat(10, 1fr);
     grid-template-columns: repeat(10, 1fr);
     background: rgb(208, 208, 208);
+    background-color: rgb(39, 44, 55);
+    border-radius: 10px;
+    /* box-shadow: -1px -1px 10px 1px black; */
 }
 
 .input{
@@ -30,23 +32,45 @@
     cursor: pointer;
 }
 
+/* animaiton */
+@keyframes bounce{
+    0%{
+        transform: scale(0);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
 .submitBtn{
-    background: linear-gradient(#3f9242, rgb(54, 118, 57));
+    background
+    : linear-gradient( #00D775, #00BD68);
     grid-area: 9/4/10/8;
     position: relative;
     z-index: 2;
-    height: 3rem;
-    border-radius: 2rem;
-    font-size: 1.3rem;
-    box-shadow: 1px 1px 10px 2px black;
+    height: 2.6rem;
+    width: 8.5rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    /* box-shadow: 1px 1px 10px 2px black; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: bounce .3s ease-in-out;
 }
+.submitBtn:hover{
+    background: #02ea81;
+}
+
 
 .files-to-upload{
     grid-area:6/2/17/10;
     /* background: rgba(225, 225, 225, 0.493); */
     /* background: linear-gradient(#aaafbb,#868b91); */
-    background: rgb(208, 208, 208);
+    /* background: rgb(208, 208, 208); */
+    background-color: rgb(39, 44, 55);
     border: 1px solid black;
+    border-radius: 10px;
     position: relative;
     z-index: 1;
     display: grid;
@@ -55,8 +79,8 @@
 .file-to-upload-inner-wrapper{
     /* border: 2px solid green; */
     padding-top: 1rem;
-    /* -ms-overflow-style: none;  IE and Edge */
-    /* scrollbar-width: none;  Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -66,7 +90,7 @@
     padding-bottom: 1rem;
 }
 .file-to-upload-inner-wrapper::-webkit-scrollbar {
-    /* display: none; */
+    display: none;
 }
 .files-to-upload__file{
     /* border: 1px solid blue; */
@@ -78,10 +102,13 @@
     gap: .5rem;
     /* justify-content: center; */
     font-size: 1rem;
-    color: rgb(86, 86, 86);
-    color: darkblue;
+    /* color: rgb(86, 86, 86); */
+    /* color: darkblue; */
     text-decoration: underline;
     /* text-shadow: 5px 5px 8px; */
+    border-bottom: 2px solid black;
+    padding-bottom: 1rem;
+    margin: .5rem;
 }
 
 .file-icon{

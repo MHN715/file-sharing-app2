@@ -1,34 +1,45 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .wrapper{
     border: 1px solid black;
     height: 80vh;
     width: 80vw;
     max-width: 50rem;
     background: rgb(225, 225, 225);
-    box-shadow: 1px 1px 15px 1px black;
+    background-color: rgb(30, 35, 47);
+    box-shadow: 0 0 40px 2px black;
     border-radius: 10px;
     display: grid;
     /* justify-content: center; */
     grid-template-rows: repeat(20, 1fr);
     grid-template-columns: repeat(20, 1fr);
+    color: rgb(232, 233, 236);
+    font-family: "Poppins";
+    /* letter-spacing: .04rem; */
 }
 
 .heading-wrapper{
     /* border: 2px solid green; */
-    grid-area: 1/7/6/15; 
+    grid-area: 1/7/5/15; 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: .7rem;
+    gap: .5rem;
 }
 
 .heading{
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 .upload-icon{
-    font-size: 4rem;
-    color: blue;
+    font-size: 3.6rem;
+    color: rgb(0, 112, 240);;
     justify-self: center;
 }
 

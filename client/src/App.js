@@ -17,7 +17,7 @@ export default function App() {
       <div className="wrapper">
         <div className="heading-wrapper">
           <AiOutlineCloudUpload className="upload-icon" />
-          <h1 className="heading">Upload your files</h1>
+          <h1 className="heading">Upload your file(s)</h1>
         </div>
 
         <FileUpload />

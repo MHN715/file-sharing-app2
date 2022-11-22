@@ -105,15 +105,15 @@ const FileUpload = () => {
             {/* <Progress percentage={uploadPercentage} /> */}
             <input
               type="submit"
-              value="Upload"
+              value="Upload file(s)"
               className="submitBtn"
               // onClick={() => setSubmitted(true)}
             />
           </>
         ) : null}
         <h2 className="heading2">
-          Drag & Drop your files here or{" "}
-          <span className="click-to-browse-dummyBtn">click</span> to browse
+          Drag & Drop your file(s) here or{" "}
+          <span className="click-to-browse-dummyBtn">Click</span> to browse
         </h2>
       </form>
       {/* <button id="submit" style="grid-column: span 2" type="submit">
